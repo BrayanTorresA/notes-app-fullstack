@@ -48,8 +48,13 @@ export class AuthService {
       throw new UnauthorizedException('Invalid password');
     }
 
+    const payload = { email: user.email };
+
+    const token = await this.jwtService.signAsync(payload);
+
     return {
       message: 'login successfully',
+      token: token,
       email: user.email,
     };
   }
