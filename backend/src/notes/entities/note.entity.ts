@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Category } from 'src/categories/entities/category.entity';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Note {
@@ -13,4 +14,9 @@ export class Note {
 
   @Column({ default: false })
   isArchived?: boolean;
+
+  @ManyToOne(() => Category, (category) => category.id, {
+    eager: true, // Trae la categoria al hacer un findOne
+  })
+  category: Category;
 }
